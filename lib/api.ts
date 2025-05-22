@@ -13,9 +13,7 @@ import {
   User
 } from './types';
 
-const API_URL = 'http://localhost:3000';
-
-// Helper function to get the auth token from localStorage
+const API_URL = "http://localhost:3000" ;
 const getToken = (): string | null => {
   if (typeof window !== 'undefined') {
     return localStorage.getItem('token');
@@ -23,7 +21,6 @@ const getToken = (): string | null => {
   return null;
 };
 
-// Helper function for API requests
 const apiRequest = async <T>(
   endpoint: string,
   method: string = 'GET',
@@ -79,7 +76,7 @@ export const authApi = {
     apiRequest<User>('/api/users/profile'),
 
   getUserById: (userId: string): Promise<User> =>
-    apiRequest<User>(`/api/users/${userId}`),
+    apiRequest<User>(`/users/${userId}`),
 };
 
 // TodoApp API
@@ -90,8 +87,9 @@ export const todoAppApi = {
   getAll: (): Promise<TodoApp[]> =>
     apiRequest<TodoApp[]>('/todo-apps'),
 
-  getById: (id: string): Promise<TodoApp[]> =>
-    apiRequest<TodoApp[]>(`/todo-apps?todoAppId=${id}`),
+  getById: (id: string): Promise<TodoApp> =>
+    apiRequest<TodoApp>(`/todo-apps/${id}`),
+
 
   update: (id: string, data: UpdateTodoAppPayload): Promise<TodoApp> =>
     apiRequest<TodoApp>(`/todo-apps/${id}`, 'PATCH', data),
