@@ -47,7 +47,6 @@ A modern, responsive frontend application built with **Next.js** for collaborati
 - **Intuitive Navigation**: Easy switching between ToDo apps
 - **Role-Based UI**: Controls and options displayed based on user permissions
 - **User Management Interface**: Streamlined invitation and role management system
-- **Real-time Feedback**: Loading states and success/error notifications
 
 
 ## 🛠️ Tech Stack
@@ -270,7 +269,6 @@ class ApiClient {
 
 ### Recommended Deployment Stack
 - **Frontend**: Vercel (optimized for Next.js)
-- **Backend**: Railway, Render, or Heroku
 - **Database**: MongoDB Atlas
 
 ### Environment Variables
