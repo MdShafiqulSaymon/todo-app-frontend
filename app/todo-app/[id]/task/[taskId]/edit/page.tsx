@@ -1,16 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { taskApi } from '@/lib/api';
 import { Task } from '@/lib/types';
 import { TaskForm } from '@/components/todo-app/TaskForm';
 import { Spinner } from '@/components/ui/Spinner';
 
 export default function EditTaskPage({
-  params,
+  params: paramsPromise,
 }: {
-  params: { id: string; taskId: string };
+  params: Promise<{ id: string; taskId: string }>;
 }) {
+  const params = use(paramsPromise);
   const [task, setTask] = useState<Task | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

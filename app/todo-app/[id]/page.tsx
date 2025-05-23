@@ -19,7 +19,6 @@ import {
   ClockIcon,
   CalendarIcon
 } from '@heroicons/react/24/outline';
-import io from 'socket.io-client';
 
 export default function TodoAppPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
@@ -33,10 +32,6 @@ export default function TodoAppPage({ params }: { params: Promise<{ id: string }
   const [userRole, setUserRole] = useState<'owner' | 'editor' | 'viewer' | null>(null);
 
   useEffect(() => {
-    const socket = io(process.env.NEST_PUBLIC_API_URL || 'http://localhost:3001', {
-      auth: { token: localStorage.getItem('token') },
-    });
-
     const fetchTodoApp = async () => {
       try {
         setLoading(true);
@@ -66,32 +61,7 @@ export default function TodoAppPage({ params }: { params: Promise<{ id: string }
     if (user) {
       fetchTodoApp();
     }
-
-    socket.on('taskUpdated', (updatedTask: Task) => {
-      setTasks((prev) =>
-        prev.map((task) => (task._id === updatedTask._id ? updatedTask : task))
-      );
-    });
-
-    socket.on('taskCreated', (newTask: Task) => {
-      if (newTask.todoAppId === id) {
-        setTasks((prev) => [...prev, newTask]);
-      }
-    });
-
-    socket.on('taskDeleted', (taskId: string) => {
-      setTasks((prev) => prev.filter((task) => task._id !== taskId));
-    });
-
-    socket.on('collaboratorUpdated', (updatedTodoApp: TodoApp) => {
-      if (updatedTodoApp._id === id) {
-        setTodoApp(updatedTodoApp);
-      }
-    });
-
-    return () => {
-      socket.disconnect();
-    };
+    console.log(user)
   }, [id, user]);
 
   const handleDeleteTodoApp = async () => {
@@ -140,8 +110,6 @@ export default function TodoAppPage({ params }: { params: Promise<{ id: string }
 
   return (
     <div className="min-h-screen">
-    
-
       <div className="relative">
         <DashboardHeader
           title={todoApp.name}
@@ -162,9 +130,8 @@ export default function TodoAppPage({ params }: { params: Promise<{ id: string }
               </div>
             </div>
           )}
-
+           {/* analytical */}
           <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
               <div className="flex items-center justify-between">
                 <div>
@@ -207,7 +174,7 @@ export default function TodoAppPage({ params }: { params: Promise<{ id: string }
               </div>
             </div>
           </div>
-
+           {/* Todo Datails */}
           <div className="mb-8">
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
               <div className="flex items-start justify-between">
@@ -246,7 +213,6 @@ export default function TodoAppPage({ params }: { params: Promise<{ id: string }
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
             <div className="lg:col-span-2">
               <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
                 <CardHeader className="bg-gradient-to-r from-blue-50/50 to-indigo-50/30">
@@ -275,7 +241,6 @@ export default function TodoAppPage({ params }: { params: Promise<{ id: string }
 
             {userRole === 'owner' && (
               <div className="space-y-8">
-
                 <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
                   <CardHeader className="bg-gradient-to-r from-green-50/50 to-emerald-50/30">
                     <div className="flex items-center space-x-3">

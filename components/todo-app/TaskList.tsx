@@ -20,7 +20,7 @@ export function TaskList({ tasks, setTasks, todoAppId, userRole }: TaskListProps
   const [error, setError] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<string>('');
   const [sortBy, setSortBy] = useState<'priority' | 'dueDate' | ''>('');
-
+  console.log(tasks);
   const handleDeleteTask = async (taskId: string) => {
     try {
       await taskApi.delete(taskId);
