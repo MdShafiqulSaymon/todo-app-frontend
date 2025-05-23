@@ -15,7 +15,7 @@ export function Header() {
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-100 backdrop-blur-sm py-2">
+    <nav className="bg-white border-b border-gray-100 backdrop-blur-sm py-2 relative z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="text-xl font-bold text-blue-600">
@@ -42,7 +42,7 @@ export function Header() {
 
           <div className="flex items-center">
             {user ? (
-              <div className="relative">
+              <div className="relative z-50">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-50 transition-colors"
@@ -59,7 +59,7 @@ export function Header() {
                 </button>
 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 sm:w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="absolute right-0 mt-2 w-48 sm:w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-[9999]">
                     <div className="px-4 py-3 border-b border-gray-100">
                       <p className="font-medium text-gray-900 text-sm sm:text-base">{user.firstName} {user.lastName}</p>
                       <p className="text-xs sm:text-sm text-gray-600 truncate">{user.email}</p>
@@ -117,7 +117,7 @@ export function Header() {
       </div>
       {isUserMenuOpen && (
         <div
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-[9998]"
           onClick={() => setIsUserMenuOpen(false)}
         />
       )}
