@@ -13,7 +13,7 @@ import {
   User
 } from './types';
 
-const API_URL =process.env.NEST_PUBLIC_API_URL || "http://localhost:3000" ;
+const API_URL =process.env.NEST_PUBLIC_API_URL || "https://todo-app-production-8c59.up.railway.app/" ;
 const getToken = (): string | null => {
   if (typeof window !== 'undefined') {
     return localStorage.getItem('token');
