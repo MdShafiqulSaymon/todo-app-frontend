@@ -68,7 +68,7 @@ export function TaskList({ tasks, setTasks, todoAppId, userRole }: TaskListProps
         </div>
       )}
       <div className="mb-4 flex space-x-4">
-        <div>
+        <div className='text-black'>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Filter by Status
           </label>
@@ -83,7 +83,7 @@ export function TaskList({ tasks, setTasks, todoAppId, userRole }: TaskListProps
             <option value="completed">Completed</option>
           </select>
         </div>
-        <div>
+        <div className='text-black'>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Sort by
           </label>
@@ -106,8 +106,8 @@ export function TaskList({ tasks, setTasks, todoAppId, userRole }: TaskListProps
             <Card key={task._id} className="p-4">
               <div className="flex justify-between items-start">
                 <div>
-                  <h4 className="text-lg font-medium">{task.title}</h4>
-                  <p className="text-sm text-gray-500">{task.description}</p>
+                  <h4 className="text-lg font-medium text-black">{task.title}</h4>
+                  <p className="text-sm text-black">{task.description}</p>
                   <div className="mt-2 flex space-x-2">
                     <Badge
                       variant={
@@ -139,7 +139,7 @@ export function TaskList({ tasks, setTasks, todoAppId, userRole }: TaskListProps
                   </div>
                 </div>
                 {userRole === 'owner' || userRole === 'editor' ? (
-                  <div className="flex space-x-2">
+                  <div className="flex space-x-2 text-black">
                     <select
                       value={task.status}
                       onChange={(e) =>
